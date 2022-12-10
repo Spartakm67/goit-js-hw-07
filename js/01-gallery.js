@@ -7,6 +7,8 @@ galleryContainer.insertAdjacentHTML("beforeend", galleryMarkup);
 
 galleryContainer.addEventListener("click", getBigSizeImage);
 
+let BigSizeImage;
+
 function createGalleryMarkup() {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -30,7 +32,21 @@ function getBigSizeImage(evt) {
   if (!evt.target.classList.contains("gallery__image")) {
     return;
   }
-  console.log(evt.target);
+
+  let clickOnImage = evt.target.dataset.source;
+
+  BigSizeImage = basicLightbox.create(`
+    <img src="${clickOnImage}" width="800" height="600">
+`);
+  window.addEventListener("keydown", closePhotoOnEsc);
+  BigSizeImage.show();
+}
+
+function closePhotoOnEsc(evt) {
+  if (evt.code === "Escape") {
+    BigSizeImage.close();
+    window.removeEventListener("keydown", closePhotoOnEsc);
+  }
 }
 
 console.log(galleryItems);
