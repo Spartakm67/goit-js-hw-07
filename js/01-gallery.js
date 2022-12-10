@@ -7,7 +7,7 @@ galleryContainer.insertAdjacentHTML("beforeend", galleryMarkup);
 
 galleryContainer.addEventListener("click", getBigSizeImage);
 
-let BigSizeImage;
+let bigSizeImage;
 
 function createGalleryMarkup() {
   return galleryItems
@@ -38,17 +38,17 @@ function getBigSizeImage(evt) {
 function clickOpenBigImage(evt) {
   let clickOnImage = evt.target.dataset.source;
 
-  BigSizeImage = basicLightbox.create(`
+  bigSizeImage = basicLightbox.create(`
     <img src="${clickOnImage}" width="800" height="600">
     `);
-  window.addEventListener("keydown", escapeCloseImage);
-  BigSizeImage.show();
+  bigSizeImage.show();
+  window.addEventListener("keydown", eventCloseBigImage);
 }
 
-function escapeCloseImage(evt) {
+function eventCloseBigImage(evt) {
   if (evt.code === "Escape") {
-    BigSizeImage.close();
-    window.removeEventListener("keydown", escapeCloseImage);
+    bigSizeImage.close();
+    window.removeEventListener("keydown", eventCloseBigImage);
   }
 }
 
