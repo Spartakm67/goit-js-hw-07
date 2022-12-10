@@ -32,20 +32,23 @@ function getBigSizeImage(evt) {
   if (!evt.target.classList.contains("gallery__image")) {
     return;
   }
+  clickOpenBigImage(evt);
+}
 
+function clickOpenBigImage(evt) {
   let clickOnImage = evt.target.dataset.source;
 
   BigSizeImage = basicLightbox.create(`
     <img src="${clickOnImage}" width="800" height="600">
-`);
-  window.addEventListener("keydown", closePhotoOnEsc);
+    `);
+  window.addEventListener("keydown", escapeCloseImage);
   BigSizeImage.show();
 }
 
-function closePhotoOnEsc(evt) {
+function escapeCloseImage(evt) {
   if (evt.code === "Escape") {
     BigSizeImage.close();
-    window.removeEventListener("keydown", closePhotoOnEsc);
+    window.removeEventListener("keydown", escapeCloseImage);
   }
 }
 
